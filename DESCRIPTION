@@ -1,0 +1,13 @@
+Package: EPASnowModel
+Type: Package
+Title: EPA Snow Model
+Version: 2.1.0
+Author: Hyung Eum
+Maintainer: Hyung Eum <hyung.eum@gov.ab.ca>
+Description: Process based snow models (PBSM) with two variables or seven variables (daily and subdaily)
+    Three snow models with daily data: Original PBSM, PBSM with S-curve, PBSM with 7 variables
+    A snow model with subdaily data: PBSM_EPA with 6 subdaily meteorological variables
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.3.1
