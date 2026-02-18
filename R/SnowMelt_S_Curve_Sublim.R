@@ -38,15 +38,13 @@ SnowMelt_S_Curve_Sublim <- function(Date, precip_mm, Tmax_C, Tmin_C, lat_deg, sl
   IceDens   <- 917           # kg/m3
   lambda    <- 3.35*10^5     # latent heat of fusion (kJ/m3) - Note: standard is ~334 kJ/kg
   lambdaV   <- 2500          # (kJ/kg) latent heat of vaporization (Water)
-
+  SnowHeatCap <- 2.1         # kJ/kg/C
+  LatHeatFreez <- 333.3      # kJ/kg
+  Cw        <- 4.2*10^3      # Heat Capacity of Water (kJ/m3/C)
   # [ADDED] Latent Heat of Sublimation
   # This constant is physically distinct from vaporization. It represents the energy required
   # to go directly from solid (snow) to gas (vapor).
   lambdaS   <- LatHeatFreez+lambdaV         # (kJ/kg) latent heat of sublimation (Snow)
-
-  SnowHeatCap <- 2.1         # kJ/kg/C
-  LatHeatFreez <- 333.3      # kJ/kg
-  Cw        <- 4.2*10^3      # Heat Capacity of Water (kJ/m3/C)
 
   ##	Converted Inputs :
   Tav <- (Tmax_C+Tmin_C)/2       # degrees C
