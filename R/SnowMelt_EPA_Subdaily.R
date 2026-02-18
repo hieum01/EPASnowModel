@@ -1,4 +1,4 @@
-#' EPA PBSM snow model
+#' EPA PBSM snow model with sub-daily input data
 #' @description
 #' Process-based snow model with six hydroclimate variables (prcp, air temperature, wind speed, relative humidity and short/longwave radiations) at a sub-daily time step (e.g., hourly data)
 #'
