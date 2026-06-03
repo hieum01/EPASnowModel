@@ -156,7 +156,7 @@ SnowMelt_EPA<-function(Date, precip_mm, Tmax_C, Tmin_C, windSp_ms,Relhum_frac,sw
   SnowDensity[1] <- ifelse((startingSnowDepth_m+NewSnow[1])>0, min(Max_SnowDensity_kg_m3, (startingSnowDensity_kg_m3*startingSnowDepth_m + NewSnowDensity[1]*NewSnow[1])/(startingSnowDepth_m+NewSnow[1])), Max_SnowDensity_kg_m3)
   SnowMelt[1] <- max(0,	min((SnowWaterEq[1]+NewSnowWatEq[1]),  # yesterday on ground + today new
                             (Energy[1]-SnowHeatCap*(SnowWaterEq[1]+NewSnowWatEq[1])*WaterDens*(0-SnowTemp[1]))/(LatHeatFreez*WaterDens) ) )
-  SnowDepth[1] <- max(0,(SnowDepth[1] + NewSnowWatEq[1]-SnowMelt[1])*WaterDens/SnowDensity[1])
+  SnowDepth[1] <- max(0,(SnowWaterEq[1] + NewSnowWatEq[1]-SnowMelt[1])*WaterDens/SnowDensity[1])
   SnowWaterEq[1] <- max(0,SnowWaterEq[1]-SnowMelt[1]+NewSnowWatEq[1])
 
   ##  Snow Melt Loop
