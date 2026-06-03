@@ -1,7 +1,7 @@
 Package: EPASnowModel
 Type: Package
 Title: EPA Snow Model
-Version: 3.1.0
+Version: 3.1.1
 Author: Hyung Eum
 Maintainer: Hyung Eum <hyung.eum@gov.ab.ca>
 Description: Process based snow models (PBSM) with two variables or seven variables (daily and subdaily)
