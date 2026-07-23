@@ -112,8 +112,8 @@ SnowMelt_EPA_Subdaily<-function(Date, time.step=1,precip_mm, Tair, windSp_ms,Rel
   Lt[1] <- Longwave(emissivity=TE[1],temp=SnowTemp[1],TimeStep=time.step)
   Energy[1] <- S[1] + La[1] - Lt[1] + H[1] + E[1] + G + P[1]
   SnowDensity[1] <- ifelse((startingSnowDepth_m+NewSnow[1])>0, min(Max_SnowDensity_kg_m3, (startingSnowDensity_kg_m3*startingSnowDepth_m + NewSnowDensity[1]*NewSnow[1])/(startingSnowDepth_m+NewSnow[1])), Max_SnowDensity_kg_m3)
-  SnowMelt[1] <- max(0,	min((startingSnowDepth_m/10+NewSnowWatEq[1]),  # yesterday on ground + today new
-                            (Energy[1]-SnowHeatCap*(startingSnowDepth_m/10+NewSnowWatEq[1])*WaterDens*(0-SnowTemp[1]))/(LatHeatFreez*WaterDens) ) )
+  SnowMelt[1] <- max(0,	min((SnowWaterEq[1]+NewSnowWatEq[1]),  # yesterday on ground + today new
+                            (Energy[1]-SnowHeatCap*(SnowWaterEq[1]+NewSnowWatEq[1])*WaterDens*(0-SnowTemp[1]))/(LatHeatFreez*WaterDens) ) )
   SnowDepth[1] <- max(0,(SnowDepth[1] + NewSnowWatEq[1]-SnowMelt[1])*WaterDens/SnowDensity[1])
   SnowWaterEq[1] <- max(0,SnowWaterEq[1]-SnowMelt[1]+NewSnowWatEq[1])
 
