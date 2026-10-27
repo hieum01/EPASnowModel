@@ -152,12 +152,13 @@ SnowMelt_S_Curve<-function(Date, precip_mm, Tmax_C, Tmin_C, lat_deg, slope=0, as
   Lt[1] <- Longwave(TE[1],SnowTemp[1])
   Energy[1] <- S[1] + La[1] - Lt[1] + H[1] + E[1] + G + P[1]
   SnowDensity[1] <- ifelse((startingSnowDepth_m+NewSnow[1])>0, min(Max_SnowDensity_kg_m3, (startingSnowDensity_kg_m3*startingSnowDepth_m + NewSnowDensity[1]*NewSnow[1])/(startingSnowDepth_m+NewSnow[1])), Max_SnowDensity_kg_m3)
-  SnowMelt[1] <- max(0,	min((startingSnowDepth_m/10+NewSnowWatEq[1]),  # yesterday on ground + today new
-                            (Energy[1]-SnowHeatCap*(startingSnowDepth_m/10+NewSnowWatEq[1])*WaterDens*(0-SnowTemp[1]))/(LatHeatFreez*WaterDens) ) )
-  SnowDepth[1] <- max(0,(SnowDepth[1] + NewSnowWatEq[1]-SnowMelt[1])*WaterDens/SnowDensity[1])
+  SnowMelt[1] <- max(0,	min((SnowWaterEq[1]+NewSnowWatEq[1]),  # yesterday on ground + today new
+                            (Energy[1]-SnowHeatCap*(SnowWaterEq[1]+NewSnowWatEq[1])*WaterDens*(0-SnowTemp[1]))/(LatHeatFreez*WaterDens) ) )
+  SnowDepth[1] <- max(0,(SnowWaterEq[1] + NewSnowWatEq[1]-SnowMelt[1])*WaterDens/SnowDensity[1])
   SnowWaterEq[1] <- max(0,SnowWaterEq[1]-SnowMelt[1]+NewSnowWatEq[1])
 
-  ##  Snow Melt Loop
+  if(length(precip_m) > 1) {
+    ##  Snow Melt Loop
   for (i in 2:length(precip_m)){
     if (NewSnow[i] > 0){
       Albedo[i] <- 0.98-(0.98-Albedo[i-1])*exp(-4*NewSnow[i]*10)
@@ -208,7 +209,8 @@ SnowMelt_S_Curve<-function(Date, precip_mm, Tmax_C, Tmin_C, lat_deg, slope=0, as
 
     SnowWaterEq[i] <- max(0,SnowWaterEq[i-1]-SnowMelt[i]+NewSnowWatEq[i]+R_m_Snow[i])	# (m) Equiv depth of water
   }
-
+  }
+  
   Results<-data.frame(Date, Tmax_C, Tmin_C, precip_mm, R_m*1000, SnowDensity,R_m_Snow*1000,NewSnowWatEq*1000,SnowMelt*1000, NewSnow, SnowDepth, SnowWaterEq*1000)
   colnames(Results)<-c("Date", "MaxT_C", "MinT_C", "Precip_mm", "Rain_mm",'Snow_Density','IceRain_mm',"SnowfallWatEq_mm", "SnowMelt_mm", "NewSnow_m", "SnowDepth_m", "SnowWaterEq_mm")
   return(Results)
